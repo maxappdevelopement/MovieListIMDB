@@ -41,6 +41,7 @@ public abstract class MovieRoomDatabase extends RoomDatabase {
                 }
             };
 
+
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final MovieDao mDao;
@@ -57,9 +58,9 @@ public abstract class MovieRoomDatabase extends RoomDatabase {
             List<String> titles = movieListCreater.createTitles();
             List<Movie> movieList = new ArrayList<>();
 
-            for (int i = 0; i < 100 ; i++) {
+            for (int i = 0; i < 99 ; i++) {
                 Movie movie = new Movie();
-                movie.setRank(i);
+                movie.setRank(i+1);
                 movie.setTitle(titles.get(i));
                 movieList.add(movie);
             }

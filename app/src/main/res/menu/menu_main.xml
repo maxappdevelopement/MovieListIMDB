@@ -2,9 +2,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="appdevelopement.max.movielist250.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/category_all_genres"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="All"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/genre_action"
+        android:orderInCategory="100"
+        android:title="Action"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/genre_drama"
+        android:orderInCategory="100"
+        android:title="Drama"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/genre_comedy"
+        android:orderInCategory="100"
+        android:title="Comedy"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/genre_horror"
+        android:orderInCategory="100"
+        android:title="Horror"
+        app:showAsAction="never" />
+
+
+
 </menu>

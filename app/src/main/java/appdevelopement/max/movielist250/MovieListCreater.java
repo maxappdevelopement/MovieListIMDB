@@ -13,8 +13,7 @@ public class MovieListCreater {
 
        List<String> top250List = new ArrayList<>();
 
-        String test = "  Rank & Title\tIMDb Rating\tYour Rating\t\n" +
-                " Dummy Score\t0. Dummy Score (1998)\t9,0\t\t\n" +
+        String html = "  Rank & Title\tIMDb Rating\tYour Rating\t\n" +
                 " The Shawshank Redemption\t1. The Shawshank Redemption (1994)\t9,2\t\t\n" +
                 " The Godfather\t2. The Godfather (1972)\t9,2\t\t\n" +
                 " The Godfather: Part II\t3. The Godfather: Part II (1974)\t9,0\t\t\n" +
@@ -266,14 +265,10 @@ public class MovieListCreater {
                 " 8½\t249. 8½ (1963)\t8,0\t\t\n" +
                 " Lagaan\t250. Lagaan (2001)\t8,0   ";
 
-        // Pattern p = Pattern.compile("title=(?<=).*\\\">(.*?)\\<\\/a");  MATCHES ALL Title and then until <
-
-        for (int i = 0; i <= 250; i++) {
-
-            //        \\t1.(.*).+?(?=\()
+        for (int i = 0; i < 249; i++) {
 
             Pattern p = Pattern.compile("\t" + i + ". (.*?) \\(");
-            Matcher m = p.matcher(test);
+            Matcher m = p.matcher(html);
 
             while (m.find()) {
                 top250List.add(m.group(1));

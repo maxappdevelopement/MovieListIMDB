@@ -48,6 +48,7 @@ public class JsonHandler {
                     movie.setTitle(response.getString("Title"));
                     movie.setDirector(response.getString("Director"));
                     movie.setActors(response.getString("Actors"));
+                    movie.setGenre(response.getString("Genre"));
                     movie.setYear(response.getString("Year"));
                     movie.setRating(response.getDouble("imdbRating"));
                     movie.setRank(rank);

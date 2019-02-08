@@ -14,48 +14,68 @@ import android.widget.TextView;
 public class MovieDetailActivity extends AppCompatActivity {
 
     Movie movie;
-    TextView movieDetails;
-    EditText userRatingInput;
-    Button saveButton;
+    TextView movieDetails, userNote;
+    EditText mEditText;
+    Button mSaveButton;
+    private static final String TAG = "MovieDetailActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
         movieDetails = findViewById(R.id.movieDetailTextView);
+        userNote = findViewById(R.id.userNote);
 
+       int rank = getIntent().getExtras().getInt("rank");
+       Log.d(TAG, "onCreate: " + rank);
 
-       int row = getIntent().getExtras().getInt("row");
-
-       movie = MainActivity.mMovieViewModel.getAllTitles().getValue().get(row);
+       movie = MainActivity.mMovieViewModel.getAllTitles().getValue().get(rank);
 
        String movieInformation =
                        "Title: " + movie.getTitle() +
                        "\nDirector: " + movie.getDirector() +
                        "\nActors: " + movie.getActors() +
+                       "\nGenre: " + movie.getGenre() +
                        "\nYear: " + movie.getYear() +
                        "\nIMDB Rating: " + movie.getRating();
 
        movieDetails.setText(movieInformation);
 
+           if (movie.getUserNote()!=null) {
+               String displayUserNote = "Note: " + movie.getUserNote();
+               userNote.setText(displayUserNote);
+           }
 
-        Spinner spinner = (Spinner) findViewById(R.id.currency_spinner);
+//EditText-------------------------------------------------------------------------
 
-        // Create an ArrayAdapter using the String array and a spinner layout
+        mEditText = findViewById(R.id.editText);
+        mSaveButton = findViewById(R.id.saveButton);
+
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String note = mEditText.getText().toString();
+                movie.setUserNote(note);
+                userNote.setText("Note: " + note);
+                MainActivity.mMovieViewModel.updateUserNote(movie);
+
+            }
+        });
+
+//Spinner--------------------------------------------------------------------------
+
+        Spinner spinner = findViewById(R.id.currency_spinner);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.ratings_array, R.layout.spinner_item);
 
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
 
         spinner.setAdapter(adapter);
         if (movie.getUserRating() != 0) {
             int spinnerPosition = adapter.getPosition(String.valueOf(movie.getUserRating()));
             spinner.setSelection(spinnerPosition);
         }
-
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -68,7 +88,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                 movie.setUserRating(convertedRating);
 
                 MainActivity.mMovieViewModel.updateUserScore(movie);
-
             }
 
             @Override
@@ -77,8 +96,5 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    }
-
+}
 

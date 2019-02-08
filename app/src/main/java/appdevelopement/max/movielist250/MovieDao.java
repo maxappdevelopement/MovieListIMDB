@@ -15,6 +15,12 @@ public interface MovieDao {
     @Query("UPDATE movie_table SET userRating = :user_rating WHERE title = :movie_name")
     int insertRatingForMovie(int user_rating, String movie_name);
 
+    @Query("UPDATE movie_table SET userNote = :user_note WHERE title = :movie_name")
+    void insertNoteForMovie(String user_note, String movie_name);
+
+    @Query("SELECT * FROM movie_table WHERE genre LIKE :movie_genre")
+    LiveData<List<Movie>> getAllGenre(String movie_genre);
+
     @Update
     void insertOnlySingleMovie(Movie movie);
 

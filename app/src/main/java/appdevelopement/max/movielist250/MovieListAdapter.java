@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.List;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
-    private int id;
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
         private final TextView movieItemViewTitle, movieItemViewScore;
@@ -45,12 +44,21 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             final Movie current = mMovies.get(position);
             int rank = current.getRank();
             String rankTitle = rank + " " + current.getTitle();
+
             String imdbRatingUserRating;
+
             if (current.getUserRating() == 0) {
                 imdbRatingUserRating = ("IMDB Rating " + current.getRating() + "\nYour Rating: ");
             } else {
                 imdbRatingUserRating = ("IMDB Rating " + current.getRating() + "\nYour Rating: " + current.getUserRating());
             }
+
+            if (current.getUserNote()!=null) {
+                imdbRatingUserRating = ("IMDB Rating " + current.getRating() +
+                        "\nYour Rating: " + current.getUserRating() +
+                        "\nYour Note: " + current.getUserNote());
+            }
+
             holder.movieItemViewTitle.setText(rankTitle);
             holder.movieItemViewScore.setText(imdbRatingUserRating);
 
@@ -58,7 +66,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                 @Override
                 public void onClick(View view) {
                     Intent detailActivity = new Intent(view.getContext(), MovieDetailActivity.class);
-                    detailActivity.putExtra("row", position);
+                    detailActivity.putExtra("rank", current.getRank()-1);
                     view.getContext().startActivity(detailActivity);
                 }
             });

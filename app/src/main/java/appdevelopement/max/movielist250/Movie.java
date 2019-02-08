@@ -2,6 +2,7 @@ package appdevelopement.max.movielist250;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,10 @@ public class Movie {
     private String actors;
 
     @Nullable
+    @ColumnInfo(name = "genre")
+    private String genre;
+
+    @Nullable
     @ColumnInfo(name = "year")
     private String year;
 
@@ -37,6 +42,10 @@ public class Movie {
     @Nullable
     @ColumnInfo(name = "userRating")
     private int userRating;
+
+    @Nullable
+    @ColumnInfo(name = "userNote")
+    private String userNote;
 
     public Movie() { }
 
@@ -77,6 +86,15 @@ public class Movie {
     }
 
     @Nullable
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(@Nullable String genre) {
+        this.genre = genre;
+    }
+
+    @Nullable
     public String getYear() {
         return year;
     }
@@ -101,5 +119,14 @@ public class Movie {
 
     public void setUserRating(@Nullable int userRating) {
         this.userRating = userRating;
+    }
+
+    @Nullable
+    public String getUserNote() {
+        return userNote;
+    }
+
+    public void setUserNote(@Nullable String userNote) {
+        this.userNote = userNote;
     }
 }
